@@ -1,13 +1,14 @@
-// Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
+// Fill out your copyright notice in the Description page of Project Settings.
 
-#include "ProjectRCharacter.h"
+
+#include "PlayerCharacter.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
-AProjectRCharacter::AProjectRCharacter()
+APlayerCharacter::APlayerCharacter()
 {
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
@@ -25,7 +26,7 @@ AProjectRCharacter::AProjectRCharacter()
 	//CameraBoom->bAbsoluteRotation = true; // Rotation of the character should not affect rotation of boom
 
 	CameraBoom->TargetArmLength = 500.f;
-	CameraBoom->SocketOffset = FVector(0.f,0.f,75.f);
+	CameraBoom->SocketOffset = FVector(0.f, 0.f, 75.f);
 
 	//заменить
 	//CameraBoom->RelativeRotation = FRotator(0.f,180.f,0.f);
@@ -54,34 +55,30 @@ AProjectRCharacter::AProjectRCharacter()
 	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
 }
 
-//////////////////////////////////////////////////////////////////////////
-// Input
-
-void AProjectRCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
+void APlayerCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 {
 	// set up gameplay key bindings
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
-	PlayerInputComponent->BindAxis("MoveRight", this, &AProjectRCharacter::MoveRight);
+	PlayerInputComponent->BindAxis("MoveRight", this, &APlayerCharacter::MoveRight);
 
-	PlayerInputComponent->BindTouch(IE_Pressed, this, &AProjectRCharacter::TouchStarted);
-	PlayerInputComponent->BindTouch(IE_Released, this, &AProjectRCharacter::TouchStopped);
+	PlayerInputComponent->BindTouch(IE_Pressed, this, &APlayerCharacter::TouchStarted);
+	PlayerInputComponent->BindTouch(IE_Released, this, &APlayerCharacter::TouchStopped);
 }
 
-void AProjectRCharacter::MoveRight(float Value)
+void APlayerCharacter::MoveRight(float Value)
 {
 	// add movement in that direction
-	AddMovementInput(FVector(0.f,-1.f,0.f), Value);
+	AddMovementInput(FVector(0.f, -1.f, 0.f), Value);
 }
 
-void AProjectRCharacter::TouchStarted(const ETouchIndex::Type FingerIndex, const FVector Location)
+void APlayerCharacter::TouchStarted(const ETouchIndex::Type FingerIndex, const FVector Location)
 {
 	// jump on any touch
 	Jump();
 }
 
-void AProjectRCharacter::TouchStopped(const ETouchIndex::Type FingerIndex, const FVector Location)
+void APlayerCharacter::TouchStopped(const ETouchIndex::Type FingerIndex, const FVector Location)
 {
 	StopJumping();
 }
-

@@ -1,13 +1,16 @@
-// Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
+// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
-#include "ProjectRCharacter.generated.h"
+#include "BaseCharacter.h"
+#include "PlayerCharacter.generated.h"
 
-UCLASS(config=Game)
-class AProjectRCharacter : public ACharacter
+/**
+ * 
+ */
+UCLASS()
+class PROJECTR_API APlayerCharacter : public ABaseCharacter
 {
 	GENERATED_BODY()
 
@@ -17,7 +20,7 @@ class AProjectRCharacter : public ACharacter
 
 	/** Camera boom positioning the camera beside the character */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	class USpringArmComponent* CameraBoom;
+		class USpringArmComponent* CameraBoom;
 
 protected:
 
@@ -36,10 +39,11 @@ protected:
 
 
 public:
-	AProjectRCharacter();
+	APlayerCharacter();
 
 	/** Returns SideViewCameraComponent subobject **/
 	FORCEINLINE class UCameraComponent* GetSideViewCameraComponent() const { return SideViewCameraComponent; }
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
+	
 };
