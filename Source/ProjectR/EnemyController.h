@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "AIController.h"
+#include "PlayerCharacter.h"
 #include "EnemyController.generated.h"
 
 /**
@@ -13,5 +14,17 @@ UCLASS()
 class PROJECTR_API AEnemyController : public AAIController
 {
 	GENERATED_BODY()
+
+protected:
+	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
+
+	const APlayerCharacter* player;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Status vars")
+	bool isActive;
 	
+public:
+	AEnemyController();
+
 };
