@@ -7,6 +7,7 @@
 #include "Components/InputComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include <string>
 
 
 APlayerCharacter::APlayerCharacter()
@@ -73,23 +74,28 @@ void APlayerCharacter::MoveRight(float Value)
 
 void APlayerCharacter::StartCrouch()
 {
-	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, "debug msg");
-
 	auto curScale = GetActorScale3D();
+	auto movementComp = GetCharacterMovement();
 
 	if (isSmall)
 	{
 		SetActorScale3D(curScale / smallCoef);
+		movementComp->MaxWalkSpeed /= smallCoef;
+		movementComp->JumpZVelocity /= sqrt(smallCoef);
+
 		isSmall = false;
 	}
 	else
 	{
 		SetActorScale3D(curScale * smallCoef);
+		movementComp->MaxWalkSpeed *= smallCoef;
+		movementComp->JumpZVelocity *= sqrt(smallCoef);
+
 		isSmall = true;
 	}
 }
 
 void APlayerCharacter::StopCrouch()
 {
-	
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, "debug msg");
 }
