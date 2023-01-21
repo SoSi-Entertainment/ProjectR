@@ -27,6 +27,7 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Size vars")
 	bool isSmall = false;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Size vars")
 	float smallCoef = 0.5f;
 
 	void MoveRight(float Val);
