@@ -20,11 +20,13 @@ class PROJECTR_API APlayerCharacter : public ABaseCharacter
 
 	/** Camera boom positioning the camera beside the character */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-		class USpringArmComponent* CameraBoom;
+	class USpringArmComponent* CameraBoom;
 
 protected:
 	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Size vars")
 	bool isSmall = false;
+
 	float smallCoef = 0.5f;
 
 	void MoveRight(float Val);
@@ -44,5 +46,4 @@ public:
 	FORCEINLINE class UCameraComponent* GetSideViewCameraComponent() const { return SideViewCameraComponent; }
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
-	
 };
