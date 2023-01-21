@@ -23,15 +23,14 @@ class PROJECTR_API APlayerCharacter : public ABaseCharacter
 		class USpringArmComponent* CameraBoom;
 
 protected:
+	
+	bool isSmall = false;
+	float smallCoef = 0.5f;
 
-	/** Called for side to side input */
 	void MoveRight(float Val);
-
-	/** Handle touch inputs. */
-	void TouchStarted(const ETouchIndex::Type FingerIndex, const FVector Location);
-
-	/** Handle touch stop event. */
-	void TouchStopped(const ETouchIndex::Type FingerIndex, const FVector Location);
+	
+	void StartCrouch();
+	void StopCrouch();
 
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;

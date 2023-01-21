@@ -8,6 +8,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
+
 APlayerCharacter::APlayerCharacter()
 {
 	// Set size for collision capsule
@@ -57,28 +58,38 @@ APlayerCharacter::APlayerCharacter()
 
 void APlayerCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 {
-	// set up gameplay key bindings
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 	PlayerInputComponent->BindAxis("MoveRight", this, &APlayerCharacter::MoveRight);
 
-	PlayerInputComponent->BindTouch(IE_Pressed, this, &APlayerCharacter::TouchStarted);
-	PlayerInputComponent->BindTouch(IE_Released, this, &APlayerCharacter::TouchStopped);
+	PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &APlayerCharacter::StartCrouch);
+	PlayerInputComponent->BindAction("Crouch", IE_Released, this, &APlayerCharacter::StopCrouch);
 }
 
 void APlayerCharacter::MoveRight(float Value)
 {
-	// add movement in that direction
 	AddMovementInput(FVector(0.f, -1.f, 0.f), Value);
 }
 
-void APlayerCharacter::TouchStarted(const ETouchIndex::Type FingerIndex, const FVector Location)
+void APlayerCharacter::StartCrouch()
 {
-	// jump on any touch
-	Jump();
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, "debug msg");
+
+	auto curScale = GetActorScale3D();
+
+	if (isSmall)
+	{
+		SetActorScale3D(curScale / smallCoef);
+		isSmall = false;
+	}
+	else
+	{
+		SetActorScale3D(curScale * smallCoef);
+		isSmall = true;
+	}
 }
 
-void APlayerCharacter::TouchStopped(const ETouchIndex::Type FingerIndex, const FVector Location)
+void APlayerCharacter::StopCrouch()
 {
-	StopJumping();
+	
 }
