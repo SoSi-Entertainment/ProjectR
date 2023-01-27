@@ -18,5 +18,5 @@ void AEnemyController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	isActive = !*(player->GetIsSmall());
+	if (player) isActive = !*(player->GetIsSmall());
 }
