@@ -32,8 +32,9 @@ protected:
 
 	void MoveRight(float Val);
 	
-	void StartCrouch();
-	void StopCrouch();
+	UFUNCTION(BlueprintNativeEvent)
+	void SwitchCrouch();
+
 
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;

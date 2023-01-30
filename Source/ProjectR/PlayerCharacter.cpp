@@ -63,8 +63,7 @@ void APlayerCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerIn
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 	PlayerInputComponent->BindAxis("MoveRight", this, &APlayerCharacter::MoveRight);
 
-	PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &APlayerCharacter::StartCrouch);
-	PlayerInputComponent->BindAction("Crouch", IE_Released, this, &APlayerCharacter::StopCrouch);
+	PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &APlayerCharacter::SwitchCrouch);
 }
 
 void APlayerCharacter::MoveRight(float Value)
@@ -72,7 +71,7 @@ void APlayerCharacter::MoveRight(float Value)
 	AddMovementInput(FVector(0.f, -1.f, 0.f), Value);
 }
 
-void APlayerCharacter::StartCrouch()
+void APlayerCharacter::SwitchCrouch_Implementation()
 {
 	auto curScale = GetActorScale3D();
 	auto movementComp = GetCharacterMovement();
@@ -93,9 +92,4 @@ void APlayerCharacter::StartCrouch()
 
 		isSmall = true;
 	}
-}
-
-void APlayerCharacter::StopCrouch()
-{
-	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, "debug msg");
 }
